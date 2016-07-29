@@ -1,0 +1,41 @@
+Hey Matt, I think I've got most of the stuff worked out, but I would still 
+like to talk to you tomorrow. This email is basically a copy of the 
+readme document located at /d/bh1/home3/gdreid/wave_elip_amr_matt.
+
+****
+
+The example in this folder solves the wave equation in cylindrical 
+coordinates:
+
+diff(f,t)   = f_t,
+diff(f_t,t) = 1/r diff(r*diff(f,r),r) + diff(f,z$2),
+
+with Neumann BCs on the r=0 boundary and Dirichlet BCs elsewhere.
+
+Additionally it solves the elliptic problem:
+
+diff(psi_t0,r$2) + diff(psi_t0,r$2) - f*f = 0
+
+with Neumann BCs on the r=0 boundary and Dirichlet BCs elsewhere.
+
+****
+
+It seems that the main issues were several fold and all acted to 
+contribute to the same sorts of errors. First off, I forgot to list 
+psi_t0 in the interp_AMR_bdy_vars. This seems to have lead to the 
+boundaries not syncing properly? Secondly, there was the issue
+where PAMR was returning the grid spacing for the finest grid in 
+the MG hierarchy rather than the spacing for the current grid.
+Finally, and most insidiously, I forgot that FORTRAN is particular
+about floating point numbers and was inadvertently casting all of
+my boundary equations to single precision by saying things like
+0.1*psi_t0(i,j) rather than 0.1D0*psi_t0(i,j). This was preventing
+the equations form converging properly on the boundaries.
+
+Anyway, with these things fixed, stuff looks a lot better. I am
+no longer getting big spikes on the boundaries. However when I
+take the second derivatives of psi_t0 in DV, the boundaries are 
+clearly visible and small spikes still appear. Any help smoothing 
+those out would be greatly appreciated.
+
+I have left example sdf files in the example directory

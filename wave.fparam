@@ -1,0 +1,132 @@
+#---------- gh3d fixed parameter file --------------------
+
+app_name := ["2D cylindrical AMRD wave equation with compactified boundaries"]
+
+num_evo_tl := 2
+ic_n := 2
+
+num_hyperbolic_vars := 3
+hyperbolic_vars := [ "f" "f_t" "psi" ]
+
+num_elliptic_vars := 1
+elliptic_vars := [ "psi_t0" ]
+
+num_AMRH_work_vars := 2
+AMRH_work_vars  := [ "w1" "w2" ]
+
+num_MGH_work_vars := 1
+MGH_work_vars := [ "mg_w1" ]
+
+t0 := 0
+
+num_amr_inject   := 3
+amr_inject       := [ "f" "f_t" "psi" ]
+
+num_amr_sync     := 3
+amr_sync         := [ "f" "f_t" "psi" ]
+
+num_amr_interp4  := 3
+amr_interp4      := [ "f" "f_t" "psi" ]
+
+num_amr_transfer4:= 4
+amr_transfer4    := [ "f" "f_t" "psi" "psi_t0" ]
+
+num_rg_diss_vars := 4
+rg_diss_vars     := [ "f" "f_t" "psi" "psi_t0" ]
+
+num_tn_diss_vars := 3
+tn_diss_vars     := [ "f" "f_t" "psi" ]
+
+num_mg_fw_restr := 3
+mg_fw_restr := [ "psi_t0" "f" "f_t" ]
+
+num_mg_sync := 3
+mg_sync := [ "psi_t0" "f" "f_t" ]
+
+num_mg_interp2 := 3
+mg_interp2 := [ "psi_t0" "f" "f_t" ]
+
+num_interp_AMR_bdy_vars := 1
+interp_AMR_bdy_vars := [ "psi_t0" ]
+interp_AMR_bdy_order := 2
+
+#---------- -------------- run-time parameter file -----------------------------------
+echo_params := 1
+pamr_trace_lev := 0
+evo_trace := 1
+
+#------------------------- parameters for initial data -------------------------------
+
+famp     := 10.0
+r0       := 5.0
+z0       := 0.0
+delr     := 1.0
+delz     := 1.0
+idsignum := 1.0
+
+#--------------------------------------------------------------------------
+
+dim := 2
+ghost_width := [4 4]
+periodic := [0 0]
+base_bbox := [-4 4 0 4]
+base_shape := [65 33]
+max_lev := 4
+min_width := [8 8]
+min_mg_cwidth := [5 5]
+lambda := 0.1
+rho_sp := 2
+rho_tm := 2
+
+steps := 256
+evo_max_iter := 20
+evo_min_iter := 1
+MG_max_iter := 50
+MG_min_iter := 1
+MG_max_citer := 5000
+MG_pre_swp := 6
+MG_pst_swp := 6
+skip_frg := 1
+re_interp_width := 2
+
+id_method := 0
+
+np1_initial_guess := 1
+io_node := 0
+
+rg_eps_diss := 0.5
+eps_diss := 0.5
+diss_bdy := 0
+
+evo_tol := 1e-9
+TRE_max := 1.0e-3
+num_TRE_vars := 2
+TRE_vars := [ "f" "f_t" ]
+TRE_buffer := 8
+TRE_ibc_buffer := 0
+regrid_interval := 16
+TRE_norm := 1
+
+MG_tol := 1e-3
+MG_crtol := 1e-3
+MG_w0 := 0.95
+MG_extrap_method := 0
+MG_eps_c := 1.0
+
+regrid_script := 0
+regrid_script_name = "wave_2d.rgs"
+
+num_save_2_vars := 4
+save_2_vars := [ "f" "f_t" "psi" "psi_t0" ]
+
+num_save_mg_vars := 1
+save_mg_vars := [ "psi_t0" ]
+
+cls_merge_dist := 2
+cls_method := 0
+cls_align_mode := 1
+
+save_tag := "4_proc_"
+
+save_ivec := 1-*
+#-----------------------------------------------------
